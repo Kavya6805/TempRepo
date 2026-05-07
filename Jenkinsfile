@@ -1,10 +1,15 @@
 pipeline{
     agent any
     stages{
+        stage('Pipeline started'){
+            steps{
+                echo "pipeline started."
+            }
+        }
         stage('Identify Branch'){
             steps{
                 script{
-                    def runningBranch = env.BRANCH_NAME ?: env.GIT_BRANCH ?: "Unknown Branch"
+                    def runningBranch = env.GIT_BRANCH
 
                     def startTime = new Date(currentBuild.startTimeInMillis).toString()
 
@@ -19,6 +24,11 @@ pipeline{
                     -----------------------------------------
                     """
                 }
+            }
+        }
+        stage('Pipeline ended'){
+            steps{
+                echo "pipeline ended."
             }
         }
     }
